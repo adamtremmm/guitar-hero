@@ -11,6 +11,7 @@ RingBuffer::RingBuffer(int capacity) {
     }
 
     capacity_ = capacity;
+    size_ = 0;
 }
 
 void RingBuffer::enqueue(int16_t x) {
@@ -19,6 +20,7 @@ void RingBuffer::enqueue(int16_t x) {
     }
 
     ring_buffer_.push(x);
+    ++size_;
 }
 
 int16_t RingBuffer::dequeue() {
@@ -28,6 +30,7 @@ int16_t RingBuffer::dequeue() {
 
     int16_t front = ring_buffer_.front();
     ring_buffer_.pop();
+    --size_;
 
     return front;
 }
@@ -38,4 +41,10 @@ int16_t RingBuffer::peek() {
     }
 
     return ring_buffer_.front();
+}
+
+void RingBuffer::empty() {
+    while (!this->isEmpty()) {
+        this->dequeue();
+    }
 }

@@ -28,3 +28,17 @@ BOOST_AUTO_TEST_CASE(check_values) {
     BOOST_REQUIRE(rb.peek() == 2);
     BOOST_REQUIRE(rb.dequeue() == 2);
 }
+
+BOOST_AUTO_TEST_CASE(check_other_fxns) {
+    RingBuffer rb(2);
+    BOOST_REQUIRE_NO_THROW(rb.enqueue(2));
+    BOOST_REQUIRE(rb.size() == 1);
+    BOOST_REQUIRE(rb.isEmpty() == false);
+    BOOST_REQUIRE(rb.dequeue() == 2);
+    BOOST_REQUIRE(rb.size() == 0);
+    BOOST_REQUIRE(rb.isEmpty() == true);
+    BOOST_REQUIRE(rb.isFull() == false);
+    BOOST_REQUIRE_NO_THROW(rb.enqueue(55));
+    BOOST_REQUIRE_NO_THROW(rb.enqueue(3));
+    BOOST_REQUIRE(rb.isFull() == true);
+}

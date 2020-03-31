@@ -1,7 +1,7 @@
 // Copyright 2020 Adam Tremblay
 
-#ifndef _USERS_ADAMTREMBLAY_DEVELOPMENT_COMPUTING_4_PS4A_RINGBUFFER_HPP_
-#define _USERS_ADAMTREMBLAY_DEVELOPMENT_COMPUTING_4_PS4A_RINGBUFFER_HPP_
+#ifndef RINGBUFFER_HPP_
+#define RINGBUFFER_HPP_
 
 #include <stdint.h>
 #include <queue>
@@ -11,13 +11,13 @@ class RingBuffer {
     explicit RingBuffer(int capacity);
 
     // return number of items currently in the buffer
-    int size() { return ring_buffer_.size(); }
+    int size() { return size_; }
 
     // is the buffer empty (size equals zero)?
-    bool isEmpty() { return ring_buffer_.size() <= 0; }
+    bool isEmpty() { return size_ <= 0; }
 
     // is the buffer full (size equals capacity)?
-    bool isFull() { return ring_buffer_.size() >= capacity_; }
+    bool isFull() { return size_ >= capacity_; }
 
     // add item x to the end
     void enqueue(int16_t x);
@@ -28,9 +28,13 @@ class RingBuffer {
     // return (but do not delete) item from the front
     int16_t peek();
 
+    // empty the ring buffer
+    void empty();
+
  private:
     std::queue<int16_t> ring_buffer_;
     int capacity_;
+    int size_;
 };
 
-#endif  // _USERS_ADAMTREMBLAY_DEVELOPMENT_COMPUTING_4_PS4A_RINGBUFFER_HPP_
+#endif  // RINGBUFFER_HPP_
