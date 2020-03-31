@@ -4,7 +4,7 @@
 #define RINGBUFFER_HPP_
 
 #include <stdint.h>
-#include <queue>
+#include <vector>
 
 class RingBuffer {
  public:
@@ -32,9 +32,11 @@ class RingBuffer {
     void empty();
 
  private:
-    std::queue<int16_t> ring_buffer_;
+    std::vector<int16_t> ring_buffer_;
     int capacity_;
     int size_;
+    int first_;
+    int last_;
 };
 
 #endif  // RINGBUFFER_HPP_

@@ -10,8 +10,14 @@ RingBuffer::RingBuffer(int capacity) {
         throw std::invalid_argument(str);
     }
 
+    for (int i = 0; i < capacity; i++) {
+        ring_buffer_.push_back(0);
+    }
+    
     capacity_ = capacity;
     size_ = 0;
+    first_ = 0;
+    last_ = 0;
 }
 
 void RingBuffer::enqueue(int16_t x) {
@@ -19,7 +25,8 @@ void RingBuffer::enqueue(int16_t x) {
         throw std::runtime_error("enqueue: can't enqueue to a full ring.");
     }
 
-    ring_buffer_.push(x);
+    ring_buffer_.at(last_) = x;
+    last_ = (last_ + 1) % capacity_;
     ++size_;
 }
 
@@ -28,8 +35,8 @@ int16_t RingBuffer::dequeue() {
         throw std::runtime_error("dequeue: can't dequeue to an empty ring.");
     }
 
-    int16_t front = ring_buffer_.front();
-    ring_buffer_.pop();
+    int16_t front = ring_buffer_.at(first_);
+    first_ = (first_ + 1) % capacity_;
     --size_;
 
     return front;
@@ -40,11 +47,11 @@ int16_t RingBuffer::peek() {
         throw std::runtime_error("peek: can't peek to an empty ring.");
     }
 
-    return ring_buffer_.front();
+    return ring_buffer_.at(first_);
 }
 
 void RingBuffer::empty() {
-    while (!this->isEmpty()) {
-        this->dequeue();
-    }
+    size_ = 0;
+    first_ = 0;
+    last_ = 0;
 }

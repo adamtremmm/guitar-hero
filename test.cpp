@@ -41,4 +41,6 @@ BOOST_AUTO_TEST_CASE(check_other_fxns) {
     BOOST_REQUIRE_NO_THROW(rb.enqueue(55));
     BOOST_REQUIRE_NO_THROW(rb.enqueue(3));
     BOOST_REQUIRE(rb.isFull() == true);
+    rb.empty();
+    BOOST_REQUIRE(rb.size() == 0);
 }
