@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "RingBuffer.hpp"
+#include "StringSound.hpp"
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MODULE Main
@@ -43,4 +44,12 @@ BOOST_AUTO_TEST_CASE(check_other_fxns) {
     BOOST_REQUIRE(rb.isFull() == true);
     rb.empty();
     BOOST_REQUIRE(rb.size() == 0);
+}
+
+BOOST_AUTO_TEST_CASE(check_StringSound) {
+    StringSound ss(9.8);
+    ss.pluck();
+    ss.tic();
+    std::cout << "Sample = " << ss.sample() << std::endl;
+    BOOST_REQUIRE(ss.time() == 1);
 }
