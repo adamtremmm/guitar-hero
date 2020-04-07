@@ -1,10 +1,13 @@
-all: test
+all: KSGuitarSim test
+
+KSGuitarSim: KSGuitarSim.o
+	g++ -o KSGuitarSim KSGuitarSim.o StringSound.o RingBuffer.o -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 test: test.o RingBuffer.o
 	g++ -o test test.o StringSound.o RingBuffer.o -std=c++11 -l boost_unit_test_framework
 
-main.o: main.cpp RingBuffer.o
-	g++ -c main.cpp -o main.o -std=c++11
+KSGuitarSim.o: KSGuitarSim.cpp StringSound.o
+	g++ -c KSGuitarSim.cpp -o KSGuitarSim.o -std=c++11
 
 test.o: test.cpp StringSound.o
 	g++ -c test.cpp -o test.o 
@@ -16,4 +19,4 @@ RingBuffer.o: RingBuffer.cpp
 	g++ -c RingBuffer.cpp -o RingBuffer.o -std=c++11
 
 clean:
-	rm *.o test
+	rm *.o test KSGuitarSim

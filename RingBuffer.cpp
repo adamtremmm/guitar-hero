@@ -13,7 +13,7 @@ RingBuffer::RingBuffer(int capacity) {
     for (int i = 0; i < capacity; i++) {
         ring_buffer_.push_back(0);
     }
-    
+
     capacity_ = capacity;
     size_ = 0;
     first_ = 0;

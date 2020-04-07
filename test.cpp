@@ -47,6 +47,8 @@ BOOST_AUTO_TEST_CASE(check_other_fxns) {
 }
 
 BOOST_AUTO_TEST_CASE(check_StringSound) {
+    BOOST_REQUIRE_NO_THROW(StringSound(9.8));
+    BOOST_REQUIRE_THROW(RingBuffer(0), std::invalid_argument);
     StringSound ss(9.8);
     ss.pluck();
     ss.tic();

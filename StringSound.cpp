@@ -2,11 +2,17 @@
 
 #include <math.h>
 #include <random>
+#include <string>
 #include "StringSound.hpp"
 
 const float ENERGY_DECAY = 0.994;
 
 StringSound::StringSound(double frequency) {
+    if (frequency < 1) {
+        std::string str = "constructor: frequency must be greater than zero.";
+        throw std::invalid_argument(str);
+    }
+
     pRing_buffer_ = new RingBuffer(ceil(frequency));
     time_ = 0;
 }
